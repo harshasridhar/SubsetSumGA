@@ -1,5 +1,6 @@
 import numpy as np 
 import math
+from operator import itemgetter
 def fitness(array,data,sum):
     c=0
     for i in range(len(data)):
@@ -23,5 +24,22 @@ for i in range(n):
     population.append({"chromosome" :np.random.randint(2,size = len(data)), "fitness" : 0})
     population[i]["fitness"] = fitness(population[i]['chromosome'],data,sum)
 print('Required Sum : '+str(sum))
+#sort the population by the fitness values
+population = sorted(population, key = itemgetter('fitness'),reverse = True)
 for i in range(n):
     print(population[i])
+
+# ranking process
+random_values = np.random.rand(n)
+random_values = [ i/ random_values.sum() for i in random_values]
+ranks = np.array(random_values)
+ranks = ranks*n
+ranks =ranks.round()
+print(ranks)
+
+new_population = []
+for i in range(len(population)):
+    for j in range(int(ranks[i])):
+        new_population.append(population[i])
+# new population after ranking process
+print(new_population)
