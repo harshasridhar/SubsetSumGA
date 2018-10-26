@@ -5,7 +5,7 @@ def fitness(array,data,sum):
     for i in range(len(data)):
         if(array[i] == 1):
             c += data[i]
-    print('sum :'+ str(c)+"\tDifference :" +str(c-sum))
+    # print('sum :'+ str(c)+"\tDifference :" +str(c-sum))
     if c == sum:
         return 100
     else :
@@ -20,8 +20,8 @@ sum = 35
 data = [1,2,3,4,5,6,7,8,9,10]
 population = []
 for i in range(n):
-    population.append(np.random.randint(2,size = len(data)))
+    population.append({"chromosome" :np.random.randint(2,size = len(data)), "fitness" : 0})
+    population[i]["fitness"] = fitness(population[i]['chromosome'],data,sum)
 print('Required Sum : '+str(sum))
 for i in range(n):
     print(population[i])
-    print("Fitness Value: ", str(fitness(population[i],data,sum)),"\n")
