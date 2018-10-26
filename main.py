@@ -25,13 +25,14 @@ for i in range(n):
     population[i]["fitness"] = fitness(population[i]['chromosome'],data,sum)
 print('Required Sum : '+str(sum))
 #sort the population by the fitness values
-population = sorted(population, key = itemgetter('fitness'),reverse = True)
+population = sorted(population, key = itemgetter('fitness'))
 for i in range(n):
     print(population[i])
 
 # ranking process
 random_values = np.random.rand(n)
 random_values = [ i/ random_values.sum() for i in random_values]
+random_values.sort()
 ranks = np.array(random_values)
 ranks = ranks*n
 ranks =ranks.round()
