@@ -38,7 +38,7 @@ def fitness(array,data,sum):
 # sum = input('Enter the sum to be obtained: ')
 # population = []
 # for i in range(n):
-n = 20
+n = 35
 sum = 35
 data = [1,2,3,4,5,6,7,8,9,10]
 mutation_rate = 0.2
@@ -47,8 +47,8 @@ population = []
 for i in range(n):
     population.append({"chromosome" :np.random.randint(2,size = len(data)), "fitness" : 0})
     population[i]["fitness"] = fitness(population[i]['chromosome'],data,sum)
-#     if(int(population[i]['fitness']) == 100):
-        # appendSolution(population[i]['chromosome'])
+    if(int(population[i]['fitness']) == 100):
+        appendSolution(population[i]['chromosome'])
 print('Required Sum : '+str(sum))
 #sort the population by the fitness values
 population = sorted(population, key = itemgetter('fitness'))
@@ -106,3 +106,4 @@ for individual in new_population:
         print(individual)
 print('\n\n')
 print(solutions)
+print(len(solutions))
