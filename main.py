@@ -1,5 +1,6 @@
 import numpy as np
 import math
+from math import exp
 from operator import itemgetter
 import random
 solutions = []
@@ -29,10 +30,11 @@ def fitness(array,data,sum):
     for i in range(len(data)):
         if(array[i] == 1):
             c += data[i]
-    if c == sum:
-        return 100.0
-    else :
-        return (1/abs(c-sum))*100
+#     if c == sum:
+#         return 100.0
+#     else :
+    return exp(-1.0*abs(c-sum))
+#     return (1/abs(c-sum))*100
 # limit = input('Enter the max limit: ')
 # n = input('Enter the population size: ')
 # sum = input('Enter the sum to be obtained: ')
@@ -47,15 +49,18 @@ population = []
 for i in range(n):
     population.append({"chromosome" :np.random.randint(2,size = len(data)), "fitness" : 0})
     population[i]["fitness"] = fitness(population[i]['chromosome'],data,sum)
-    if(int(population[i]['fitness']) == 100):
+    if((population[i]['fitness']) == 1.0):
         appendSolution(population[i]['chromosome'])
 #print('Required Sum : '+str(sum))
 #sort the population by the fitness values
 population = sorted(population, key = itemgetter('fitness'))
 # for i in range(n):
     #print(population[i])
-iterations = 10
-for iter in range(iterations):
+# iterations = 15
+iter=0
+while(len(solutions)!=31):
+# for iter in range(iterations):
+    iter +=1
     print("Generation: "+str(iter+1))
     # ranking process
     random_values = np.random.rand(n)
@@ -101,12 +106,24 @@ for iter in range(iterations):
             new_population[i]['fitness'] = fitness(new_population[i]['chromosome'],data,sum)
     new_population = sorted(new_population, key = itemgetter('fitness'))
     for i in range(len(new_population)):
-            if(int(new_population[i]['fitness']) == 100):
+            if((new_population[i]['fitness']) == 1.0):
                     print(new_population[i])
                     appendSolution(new_population[i]['chromosome'])
+    print(iter," ",len(solutions))
     #print('\n\nNew Population after one iteration\n')   
     # for individual in new_population:
             #print(individual)
     #print('\n\n')
     #print(solutions)
-    #print(len(solutions))
+f=open('a.plot',"a")
+f.write(str(iter)+"\n")
+for sol in solutions:
+        print(sol)
+print(len(solutions))
+sum = np.zeros(len(solutions))
+print("\n\n")
+for i in range(len(solutions)):
+        solution = solutions[i]
+        for j in range(len(solution)):
+                sum[i] += solution[j]*(j+1)
+print(sum)
